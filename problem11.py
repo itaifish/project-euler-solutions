@@ -1,3 +1,5 @@
+# https://projecteuler.net/problem=11
+
 from typing import List
 
 nums = [
@@ -27,7 +29,7 @@ def within(target: int, max: int, min: int):
 	return target <= max and target >= min
 
 def find_max(nums_array: List[List[int]], offset_size: int):
-	# in this specific text case all numbers arepositive
+	# in this specific test case all numbers are positive
 	cur_max = 0
 	y_max = len(nums_array) - 1
 	for y in range(y_max + 1):
