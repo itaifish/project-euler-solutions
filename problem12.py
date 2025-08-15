@@ -27,6 +27,13 @@ def prime_factors_for_num(number: int):
 	prime_factors_dict[number] = factors
 	return factors
 
+# essentially what we're doing here is splitting this into
+# (a ^ n) * (b ^ m) * (c ^ o) .. etc where a,b,c are unique integers
+# where all the possibilities are the number of possible `a`s from 0->n (so n+1 possibilities)
+# mulitiplied by the number of possible `b`s from 0-> m, etc
+# so it ends up being (n+1)*(m+1)*(o+1). If n,m,o are all 1 you end up with
+# 2*2*2 etc equal to the number of prime factors, which is the number of unique combinations 
+# without repetition
 def count_divisors_from_prime_factors(prime_factors: List[int]):
 	sorted_factors = sorted(prime_factors)
 	last_num = -1
@@ -52,13 +59,7 @@ def first_triangle_number_with_divisors(num_divisors_min: int):
 		triangle_number += position
 		prime_factors = prime_factors_for_num(triangle_number)
 		divisors = count_divisors_from_prime_factors(prime_factors)
-		# print("{triangle_number} has {divisors} divisors [{prime_factors}]".format(triangle_number=triangle_number, divisors=divisors, prime_factors=prime_factors))
 		if divisors >= num_divisors_min:
 			return triangle_number
-
-triangle_num = 72
-#prime_factors = prime_factors_for_num(triangle_num) 
-#print(prime_factors)
-#print(count_divisors_from_prime_factors(prime_factors))
 
 print(first_triangle_number_with_divisors(501))
