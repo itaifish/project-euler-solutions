@@ -35,10 +35,7 @@ def find_max(nums_array: List[List[int]], offset_size: int):
 	for y in range(y_max + 1):
 		x_max = len(nums_array[y]) - 1
 		for x in range(x_max + 1):
-			for x_delta in [-1, 0, 1]:
-				for y_delta in [-1, 0, 1]:
-					if x_delta == 0 and y_delta == 0:
-						continue
+			for [x_delta, y_delta] in [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]:
 					if (not within(x + (x_delta * (offset_size - 1)), x_max, 0)) or (not within(y + (y_delta * (offset_size - 1)), y_max, 0)):
 						continue
 					new_possible_max = 1
