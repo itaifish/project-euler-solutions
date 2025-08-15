@@ -2,6 +2,8 @@
 
 from typing import List
 
+directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+
 nums = [
     [8, 2, 22, 97, 38, 15, 0, 40, 0, 75, 4, 5, 7, 78, 52, 12, 50, 77, 91, 8],
     [49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 98, 43, 69, 48, 4, 56, 62, 0],
@@ -35,7 +37,7 @@ def find_max(nums_array: List[List[int]], offset_size: int):
 	for y in range(y_max + 1):
 		x_max = len(nums_array[y]) - 1
 		for x in range(x_max + 1):
-			for [x_delta, y_delta] in [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]:
+			for [x_delta, y_delta] in directions:
 					if (not within(x + (x_delta * (offset_size - 1)), x_max, 0)) or (not within(y + (y_delta * (offset_size - 1)), y_max, 0)):
 						continue
 					new_possible_max = 1
