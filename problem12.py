@@ -13,7 +13,7 @@ def prime_factors_for_num(number: int):
 	while not finished:
 		i = 2
 		max = sqrt(cur_number)
-		while i < max:
+		while i <= max:
 			result, remainder = divmod(cur_number, i)
 			if remainder == 0:
 				factors += prime_factors_for_num(i)
@@ -28,14 +28,19 @@ def prime_factors_for_num(number: int):
 	return factors
 
 def count_divisors_from_prime_factors(prime_factors: List[int]):
-	deduplicated_prime_factors = set(prime_factors)
-	size_difference = len(prime_factors) - len(deduplicated_prime_factors)
-	total = 2 ** len(prime_factors)
-	if size_difference == 0:
-		return total
-	for i in range(0, size_difference):
-		total -= len(prime_factors) - i
-	return total
+	sorted_factors = sorted(prime_factors)
+	last_num = -1
+	running_total_count = 0
+	running_total_divisors = 1
+	for factor in sorted_factors:
+		if factor == last_num:
+			running_total_count += 1
+		else:
+			running_total_divisors *= running_total_count + 1
+			running_total_count = 1
+			last_num = factor
+	running_total_divisors *= running_total_count + 1
+	return running_total_divisors
 
 
 
@@ -51,8 +56,9 @@ def first_triangle_number_with_divisors(num_divisors_min: int):
 		if divisors >= num_divisors_min:
 			return triangle_number
 
-triangle_num = 32640
-prime_factors = prime_factors_for_num(triangle_num) 
-print(prime_factors)
-print(count_divisors_from_prime_factors(prime_factors))
-#print(first_triangle_number_with_divisors(501))
+triangle_num = 72
+#prime_factors = prime_factors_for_num(triangle_num) 
+#print(prime_factors)
+#print(count_divisors_from_prime_factors(prime_factors))
+
+print(first_triangle_number_with_divisors(501))
