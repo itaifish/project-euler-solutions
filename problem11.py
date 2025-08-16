@@ -27,24 +27,30 @@ nums = [
     [1, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 1, 89, 19, 67, 48],
 ]
 
+
 def within(target: int, max: int, min: int):
-	return target <= max and target >= min
+    return target <= max and target >= min
+
 
 def find_max(nums_array: List[List[int]], offset_size: int):
-	# in this specific test case all numbers are positive
-	cur_max = 0
-	y_max = len(nums_array) - 1
-	for y in range(y_max + 1):
-		x_max = len(nums_array[y]) - 1
-		for x in range(x_max + 1):
-			for [x_delta, y_delta] in directions:
-					if (not within(x + (x_delta * (offset_size - 1)), x_max, 0)) or (not within(y + (y_delta * (offset_size - 1)), y_max, 0)):
-						continue
-					new_possible_max = 1
-					for offset_multiplier in range(offset_size):
-						new_possible_max *= nums_array[y + (y_delta * offset_multiplier)][x + (x_delta * offset_multiplier)]
-					cur_max = max(cur_max, new_possible_max)
-	return cur_max
+    # in this specific test case all numbers are positive
+    cur_max = 0
+    y_max = len(nums_array) - 1
+    for y in range(y_max + 1):
+        x_max = len(nums_array[y]) - 1
+        for x in range(x_max + 1):
+            for [x_delta, y_delta] in directions:
+                if (not within(x + (x_delta * (offset_size - 1)), x_max, 0)) or (
+                    not within(y + (y_delta * (offset_size - 1)), y_max, 0)
+                ):
+                    continue
+                new_possible_max = 1
+                for offset_multiplier in range(offset_size):
+                    new_possible_max *= nums_array[y + (y_delta * offset_multiplier)][
+                        x + (x_delta * offset_multiplier)
+                    ]
+                cur_max = max(cur_max, new_possible_max)
+    return cur_max
+
 
 print(find_max(nums, 4))
-
