@@ -1,5 +1,5 @@
 # https://projecteuler.net/problem=12
-from math import floor, sqrt
+from math import sqrt
 from typing import Dict, List
 
 prime_factors_dict: Dict[int, List[int]] = {}
