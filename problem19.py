@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Month(Enum):
 	January = 0
 	February = 1
@@ -13,6 +14,7 @@ class Month(Enum):
 	October = 9
 	November = 10
 	December = 11
+
 
 def days_in_month(month: Month, year: int):
 	match month:
@@ -34,12 +36,13 @@ def days_in_month(month: Month, year: int):
 			return 31
 		case Month.September:
 			return 30
-		case Month.October: 
+		case Month.October:
 			return 31
 		case Month.November:
 			return 30
 		case Month.December:
 			return 31
+
 
 class DayOfWeek(Enum):
 	Monday = 0
@@ -50,8 +53,10 @@ class DayOfWeek(Enum):
 	Saturday = 5
 	Sunday = 6
 
+
 def next(day: DayOfWeek, num_days: int):
 	return DayOfWeek((day.value + num_days) % 7)
+
 
 year = 1901
 day = DayOfWeek.Tuesday
