@@ -1,0 +1,3 @@
+# run `ruff format` to format
+[format]
+indent-style = "tab"
