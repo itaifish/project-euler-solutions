@@ -11,7 +11,7 @@ def find_collatz_length(num: int):
 	if collatz_memoized.get(num) is not None:
 		return collatz_memoized[num]
 	if num & 1 == 0:
-		collatz_memoized[num] = 1 + find_collatz_length(int(num / 2))
+		collatz_memoized[num] = 1 + find_collatz_length(num >> 1)
 	else:
 		collatz_memoized[num] = 1 + find_collatz_length((3 * num) + 1)
 	return collatz_memoized[num]
