@@ -1,5 +1,6 @@
 # https://projecteuler.net/problem=12
 from math import sqrt
+from time import perf_counter
 from typing import Dict, List
 
 prime_factors_dict: Dict[int, List[int]] = {}
@@ -62,5 +63,8 @@ def first_triangle_number_with_divisors(num_divisors_min: int):
 		if divisors >= num_divisors_min:
 			return triangle_number
 
-
-print(first_triangle_number_with_divisors(501))
+start = perf_counter()
+result = first_triangle_number_with_divisors(501)
+end = perf_counter()
+print(result)
+print(end - start)

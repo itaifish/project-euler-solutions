@@ -1,5 +1,6 @@
 # https://projecteuler.net/problem=14
 
+from time import perf_counter
 from typing import Dict
 
 collatz_memoized: Dict[int, int] = {1: 1}
@@ -27,4 +28,8 @@ def find_largest_collatz_sequence_within_range(max_num: int):
 	return number_for_length
 
 
-print(find_largest_collatz_sequence_within_range(1000000))
+start = perf_counter()
+result = find_largest_collatz_sequence_within_range(1_000_000)
+end = perf_counter()
+print(result)
+print(end - start)

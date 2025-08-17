@@ -1,4 +1,5 @@
 from enum import Enum
+from time import perf_counter
 
 
 class Month(Enum):
@@ -57,20 +58,25 @@ class DayOfWeek(Enum):
 def next(day: DayOfWeek, num_days: int):
 	return DayOfWeek((day.value + num_days) % 7)
 
+def solve():
+	year = 1901
+	day = DayOfWeek.Tuesday
+	month = Month.January
+	sundays = 0
+	while year < 2001:
+		prev_month = month
+		if day == DayOfWeek.Sunday:
+			sundays += 1
+		if month == Month.December:
+			year += 1
+			month = Month.January
+		else:
+			month = Month(month.value + 1)
+		day = next(day, days_in_month(prev_month, year))
+	return sundays
 
-year = 1901
-day = DayOfWeek.Tuesday
-month = Month.January
-sundays = 0
-while year < 2001:
-	prev_month = month
-	if day == DayOfWeek.Sunday:
-		sundays += 1
-	if month == Month.December:
-		year += 1
-		month = Month.January
-	else:
-		month = Month(month.value + 1)
-	day = next(day, days_in_month(prev_month, year))
-	# print("{day} {month} {year}".format(month=month.name, day=day.name, year=year))
-print(sundays)
+start = perf_counter()
+result = solve()
+end = perf_counter()
+print(result)
+print(end - start)

@@ -1,5 +1,6 @@
 # https://projecteuler.net/problem=11
 
+from time import perf_counter
 from typing import List
 
 directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
@@ -52,5 +53,8 @@ def find_max(nums_array: List[List[int]], offset_size: int):
 				cur_max = max(cur_max, new_possible_max)
 	return cur_max
 
-
-print(find_max(nums, 4))
+start = perf_counter()
+result = find_max(nums, 4)
+end = perf_counter()
+print(result)
+print(end - start)

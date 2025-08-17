@@ -1,5 +1,8 @@
 # https://projecteuler.net/problem=13
 
+from time import perf_counter
+
+
 input = """37107287533902102798797998220837590246510135740250
 46376937677490009712648124896970078050417018260538
 74324986199524741059474233309513058123726617309629
@@ -101,6 +104,13 @@ input = """37107287533902102798797998220837590246510135740250
 20849603980134001723930671666823555245252804609722
 53503534226472524250874054075591789781264330331690"""
 
-nums = map(lambda str: int(str[:13]), input.split("\n"))
-total = sum(nums)
-print(str(total)[:10])
+def solve():
+	nums = map(lambda str: int(str[:13]), input.split("\n"))
+	total = sum(nums)
+	return str(total)[:10]
+
+start = perf_counter()
+result = solve()
+end = perf_counter()
+print(result)
+print(end - start)

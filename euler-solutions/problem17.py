@@ -1,3 +1,6 @@
+from time import perf_counter
+
+
 words_dict_digits = {
 	0: 4,  # "zero"
 	1: 3,  # "one",
@@ -58,8 +61,14 @@ def number_to_letter_count(num: int, is_root=True):
 	else:
 		return words_dict_digits[num]
 
+def solve():
+	total = 0
+	for i in range(1, 1001):
+		total += number_to_letter_count(i)
+	return total
 
-total = 0
-for i in range(1, 1001):
-	total += number_to_letter_count(i)
-print(total)
+start = perf_counter()
+result = solve()
+end = perf_counter()
+print(result)
+print(end - start)
