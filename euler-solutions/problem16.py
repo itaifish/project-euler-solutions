@@ -10,7 +10,7 @@ def solve():
 
 
 start = perf_counter()
-result = solve(40, 20)
+result = solve()
 end = perf_counter()
 print(result)
 print(end - start)

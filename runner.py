@@ -39,7 +39,7 @@ runtime_statistics = {
 
 print("Individual Runtime Statistics (min, median, max) in miliseconds")
 for filename, filename_statistics in sorted(list(runtime_statistics.items())):
-	print(f"{filename}: {list(map('{:10.2f}'.format, filename_statistics))}")
+	print(f"{filename}: {list(map('{:10.6f}'.format, filename_statistics))}")
 
 overall_runtime_statistics = tuple(
 	sum(runtimes) for runtimes in zip(*runtime_statistics.values())
