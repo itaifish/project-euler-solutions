@@ -1,6 +1,6 @@
 # https://projecteuler.net/problem=14
 
-from typing import Dict, List
+from typing import Dict
 
 collatz_memoized: Dict[int, int] = {1: 1}
 

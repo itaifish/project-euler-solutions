@@ -4,7 +4,6 @@ from typing import Dict, List
 
 prime_factors_dict: Dict[int, List[int]] = {}
 
-
 def prime_factors_for_num(number: int):
 	if prime_factors_dict.get(number) != None:
 		return prime_factors_dict[number]

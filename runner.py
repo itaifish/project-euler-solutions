@@ -25,11 +25,14 @@ for file in files:
 		exit(-2)
 
 	for _ in range(0, num_runs):
-		time = timeit.timeit(lambda : subprocess.run(["python", file_path], capture_output=True, check=True), number=1)
-		
-		runtimes.setdefault(file, []).append(
-			time * 1_000
-		)  # convert to milliseconds
+		time = timeit.timeit(
+			lambda: subprocess.run(
+				["python", file_path], capture_output=True, check=True
+			),
+			number=1,
+		)
+
+		runtimes.setdefault(file, []).append(time * 1_000)  # convert to milliseconds
 
 runtime_statistics = {
 	filename: (min(runtimes), statistics.median(runtimes), max(runtimes))
@@ -38,7 +41,7 @@ runtime_statistics = {
 
 print("Individual Runtime Statistics (min, median, max) in miliseconds")
 for filename, filename_statistics in sorted(list(runtime_statistics.items())):
-	print(f"{filename}: {list(map("{:10.2f}".format, filename_statistics))}")
+	print(f"{filename}: {list(map('{:10.2f}'.format, filename_statistics))}")
 
 overall_runtime_statistics = tuple(
 	sum(runtimes) for runtimes in zip(*runtime_statistics.values())
