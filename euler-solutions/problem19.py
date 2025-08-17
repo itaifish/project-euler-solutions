@@ -58,6 +58,7 @@ class DayOfWeek(Enum):
 def next(day: DayOfWeek, num_days: int):
 	return DayOfWeek((day.value + num_days) % 7)
 
+
 def solve():
 	year = 1901
 	day = DayOfWeek.Tuesday
@@ -74,6 +75,7 @@ def solve():
 			month = Month(month.value + 1)
 		day = next(day, days_in_month(prev_month, year))
 	return sundays
+
 
 start = perf_counter()
 result = solve()

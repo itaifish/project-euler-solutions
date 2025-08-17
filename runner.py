@@ -28,7 +28,9 @@ for file in files:
 		result = subprocess.run(["python", file_path], capture_output=True, check=True)
 		last_line = result.stdout.strip().split(b"\n")[-1]
 		last_line_int = float(last_line)
-		runtimes.setdefault(file, []).append(last_line_int * 1_000) # convert to milliseconds
+		runtimes.setdefault(file, []).append(
+			last_line_int * 1_000
+		)  # convert to milliseconds
 
 runtime_statistics = {
 	filename: (min(runtimes), statistics.median(runtimes), max(runtimes))

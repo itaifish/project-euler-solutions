@@ -31,9 +31,14 @@ triangle = """75
 91 71 52 38 17 14 91 43 58 50 27 29 48
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
+
+
 def solve():
 	lists = list(
-		map(lambda string_list: list(map(int, string_list.split())), triangle.split("\n"))
+		map(
+			lambda string_list: list(map(int, string_list.split())),
+			triangle.split("\n"),
+		)
 	)
 	best_path_solution = [[-1 for _ in num_list] for num_list in lists]
 	best_path_solution[0][0] = lists[0][0]
@@ -45,6 +50,7 @@ def solve():
 				get_or_none(best_path_solution, list_index - 1, item_index) or 0,
 			)
 	return max(best_path_solution[len(lists) - 1])
+
 
 start = perf_counter()
 result = solve()

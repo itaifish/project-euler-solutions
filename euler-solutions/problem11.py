@@ -53,6 +53,7 @@ def find_max(nums_array: List[List[int]], offset_size: int):
 				cur_max = max(cur_max, new_possible_max)
 	return cur_max
 
+
 start = perf_counter()
 result = find_max(nums, 4)
 end = perf_counter()

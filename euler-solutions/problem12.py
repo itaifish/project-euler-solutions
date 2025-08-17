@@ -5,6 +5,7 @@ from typing import Dict, List
 
 prime_factors_dict: Dict[int, List[int]] = {}
 
+
 def prime_factors_for_num(number: int):
 	if prime_factors_dict.get(number) != None:
 		return prime_factors_dict[number]
@@ -62,6 +63,7 @@ def first_triangle_number_with_divisors(num_divisors_min: int):
 		divisors = count_divisors_from_prime_factors(prime_factors)
 		if divisors >= num_divisors_min:
 			return triangle_number
+
 
 start = perf_counter()
 result = first_triangle_number_with_divisors(501)
