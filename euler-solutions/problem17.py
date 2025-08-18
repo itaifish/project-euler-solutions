@@ -1,7 +1,8 @@
 from time import perf_counter
+
 # 0-9
-words_dict_digits_fast = [4,3,3,5,4,4,3,5,5,4]
-#20-90
+words_dict_digits_fast = [4, 3, 3, 5, 4, 4, 3, 5, 5, 4]
+# 20-90
 words_dict_tens_fast = [-1, -1, 6, 6, 5, 5, 5, 7, 6, 6]
 
 hundred = 7
