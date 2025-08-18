@@ -1,5 +1,7 @@
 from time import perf_counter
 
+word_dict_digits_fast = [4,3,3,5,4,4,3,5,5,4]
+words_dict_tens_fast = [-1, -1, 6, 6, 5, 5, 5, 7, 6, 6]
 
 words_dict_digits = {
 	0: 4,  # "zero"

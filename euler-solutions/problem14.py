@@ -5,6 +5,7 @@ from typing import Dict
 
 collatz_memoized: Dict[int, int] = {1: 1}
 
+collatz_memoized_array = []
 
 def find_collatz_length(num: int):
 	# list of numbers and their offsets to add
