@@ -26,7 +26,6 @@ from time import perf_counter
 # 	Sunday = 6
 
 
-
 def weekday_offset(month: int, year: int):
 	match month:
 		case 0:
@@ -54,8 +53,9 @@ def weekday_offset(month: int, year: int):
 		case 11:
 			return 3
 
+
 def next(day: int, num_days: int):
-	new_day = (day + num_days)
+	new_day = day + num_days
 	if new_day >= 7:
 		new_day -= 7
 	return new_day

@@ -1,7 +1,7 @@
 import sys
 import os
 from pathlib import Path
-import timeit
+from tqdm import tqdm
 import subprocess
 import statistics
 
@@ -24,7 +24,7 @@ for file in files:
 		print(f"Expected all files to have extension .py, but got {file_path}")
 		exit(-2)
 
-	for _ in range(0, num_runs):
+	for _ in tqdm(range(0, num_runs)):
 		result = subprocess.run(["python", file_path], capture_output=True, check=True)
 		last_line = result.stdout.strip().split(b"\n")[-1]
 		last_line_int = float(last_line)
