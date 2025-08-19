@@ -26,6 +26,7 @@ def prime_factors_for_num(number: int):
 			finished = True
 	prime_factors_dict[cur_number] = [cur_number]
 	factors.append(cur_number)
+	factors.sort()
 	prime_factors_dict[number] = factors
 	return factors
 
@@ -38,7 +39,7 @@ def prime_factors_for_num(number: int):
 # 2*2*2 etc equal to the number of prime factors, which is the number of unique combinations
 # without repetition
 def count_divisors_from_prime_factors(prime_factors: List[int]):
-	sorted_factors = sorted(prime_factors)
+	sorted_factors = prime_factors
 	last_num = -1
 	running_total_count = 0
 	running_total_divisors = 1
