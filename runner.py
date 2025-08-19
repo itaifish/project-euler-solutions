@@ -23,7 +23,7 @@ for file in files:
 	if file_path.suffix != ".py":
 		print(f"Expected all files to have extension .py, but got {file_path}")
 		exit(-2)
-
+	print(f"Running {file}")
 	for _ in tqdm(range(0, num_runs)):
 		result = subprocess.run(["python", file_path], capture_output=True, check=True)
 		last_line = result.stdout.strip().split(b"\n")[-1]
