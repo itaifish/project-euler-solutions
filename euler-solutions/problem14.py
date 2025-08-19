@@ -17,7 +17,7 @@ def find_collatz_length(num: int):
 		elif num > 4:
 			# number is divisible by 2 but not 4. We can do even->odd->even->?
 			# transformed_num = (3 * (num >> 1) + 1) >> 1 optimized to (3*num + 2) >> 2
-			transformed_num = ((3*num) + 2) >> 2
+			transformed_num = ((3 * num) + 2) >> 2
 			collatz_memoized[num] = 3 + find_collatz_length(transformed_num)
 		else:
 			collatz_memoized[num] = 1 + find_collatz_length(num >> 1)
