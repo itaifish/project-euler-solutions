@@ -11,16 +11,18 @@ def find_collatz_length(num: int):
 	if collatz_memoized.get(num) is not None:
 		return collatz_memoized[num]
 	if num & 1 == 0:
+		# for even we divide by 2. Could be even or odd.
 		collatz_memoized[num] = 1 + find_collatz_length(num >> 1)
 	else:
-		collatz_memoized[num] = 1 + find_collatz_length((3 * num) + 1)
+		# for odd we do 2 steps at once. since 3*odd + 1 will always be even
+		collatz_memoized[num] = 2 + find_collatz_length(((3 * num) + 1) >> 1)
 	return collatz_memoized[num]
 
 
 def find_largest_collatz_sequence_within_range(max_num: int):
 	running_max = 1
 	number_for_length = 1
-	for i in range(2, max_num + 1):
+	for i in range(int(max_num / 2), max_num + 1):
 		new_len = find_collatz_length(i)
 		if new_len > running_max:
 			running_max = new_len

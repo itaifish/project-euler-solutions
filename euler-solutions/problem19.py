@@ -2,78 +2,80 @@ from enum import Enum
 from time import perf_counter
 
 
-class Month(Enum):
-	January = 0
-	February = 1
-	March = 2
-	April = 3
-	May = 4
-	June = 5
-	July = 6
-	August = 7
-	September = 8
-	October = 9
-	November = 10
-	December = 11
+# class Month(Enum):
+# 	January = 0
+# 	February = 1
+# 	March = 2
+# 	April = 3
+# 	May = 4
+# 	June = 5
+# 	July = 6
+# 	August = 7
+# 	September = 8
+# 	October = 9
+# 	November = 10
+# 	December = 11
+
+# class DayOfWeek(Enum):
+# 	Monday = 0
+# 	Tuesday = 1
+# 	Wednesday = 2
+# 	Thursday = 3
+# 	Friday = 4
+# 	Saturday = 5
+# 	Sunday = 6
 
 
-def days_in_month(month: Month, year: int):
+
+def weekday_offset(month: int, year: int):
 	match month:
-		case Month.January:
-			return 31
-		case Month.February:
-			return 28 + int(year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
-		case Month.March:
-			return 31
-		case Month.April:
-			return 30
-		case Month.May:
-			return 31
-		case Month.June:
-			return 30
-		case Month.July:
-			return 31
-		case Month.August:
-			return 31
-		case Month.September:
-			return 30
-		case Month.October:
-			return 31
-		case Month.November:
-			return 30
-		case Month.December:
-			return 31
+		case 0:
+			return 3
+		case 1:
+			return int(year % 4 == 0 and (year % 100 != 0 or year % 400 == 0))
+		case 2:
+			return 3
+		case 3:
+			return 2
+		case 4:
+			return 3
+		case 5:
+			return 2
+		case 6:
+			return 3
+		case 7:
+			return 3
+		case 8:
+			return 2
+		case 9:
+			return 3
+		case 10:
+			return 2
+		case 11:
+			return 3
 
-
-class DayOfWeek(Enum):
-	Monday = 0
-	Tuesday = 1
-	Wednesday = 2
-	Thursday = 3
-	Friday = 4
-	Saturday = 5
-	Sunday = 6
-
-
-def next(day: DayOfWeek, num_days: int):
-	return DayOfWeek((day.value + num_days) % 7)
+def next(day: int, num_days: int):
+	new_day = (day + num_days)
+	if new_day >= 7:
+		new_day -= 7
+	return new_day
 
 
 def solve():
 	year = 1901
-	day = DayOfWeek.Tuesday
-	month = Month.January
+	day = 1
+	month = 0
 	sundays = 0
 	while year < 2001:
 		prev_month = month
-		if day == DayOfWeek.Sunday:
+		if day == 6:
 			sundays += 1
-		if month == Month.December:
+		if month == 11:
 			year += 1
-			month = Month.January
+			month = 0
 		else:
-			month = Month(month.value + 1)
-		day = next(day, days_in_month(prev_month, year))
+			month = month + 1
+		day = next(day, weekday_offset(prev_month, year))
 	return sundays
 
 
