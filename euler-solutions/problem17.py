@@ -14,13 +14,10 @@ words_dict_special_fast = [3, 6, 6, 8, 8, 7, 7, 9, 8, 8]
 
 
 def number_to_letter_count(num: int, is_root=True):
-	if not is_root and num == 0:
+	if num == 0 and not is_root:
 		return 0
 	if num == 1_000:
 		return one_thousand
-	teens_index = num - 10
-	if teens_index >= 0 and teens_index < len(words_dict_special_fast):
-		return words_dict_special_fast[teens_index]
 	if num >= 100:
 		result, remainder = divmod(num, 100)
 		hundreds_piece = number_to_letter_count(result, False) + hundred
@@ -30,6 +27,9 @@ def number_to_letter_count(num: int, is_root=True):
 	if num >= 20:
 		result, remainder = divmod(num, 10)
 		return words_dict_tens_fast[result] + number_to_letter_count(remainder, False)
+	teens_index = num - 10
+	if teens_index >= 0 and teens_index < len(words_dict_special_fast):
+		return words_dict_special_fast[teens_index]
 	else:
 		return words_dict_digits_fast[num]
 
