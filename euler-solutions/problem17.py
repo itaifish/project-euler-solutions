@@ -1,4 +1,5 @@
 from time import perf_counter
+start = perf_counter()
 
 # 0-9
 words_dict_digits_fast = [4, 3, 3, 5, 4, 4, 3, 5, 5, 4]
@@ -12,27 +13,33 @@ and_word = 3
 # 10-19
 words_dict_special_fast = [3, 6, 6, 8, 8, 7, 7, 9, 8, 8]
 
+all_nums = [0] * 1001
 
-def number_to_letter_count(num: int, is_root=True):
-	if num == 0 and not is_root:
-		return 0
-	if num == 1_000:
-		return one_thousand
+for i in range(10):
+	all_nums[i] = words_dict_digits_fast[i]
+	all_nums[i + 10] = words_dict_special_fast[i]
+	if i > 1:
+		all_nums[i * 10] = words_dict_tens_fast[i]
+all_nums[1000] = one_thousand
+
+def number_to_letter_count(num: int):
+	if all_nums[num] != 0:
+		return all_nums[num]
 	if num >= 100:
 		result, remainder = divmod(num, 100)
-		hundreds_piece = number_to_letter_count(result, False) + hundred
+		hundreds_piece = all_nums[result] + hundred
 		if remainder > 0:
-			return hundreds_piece + and_word + number_to_letter_count(remainder, False)
+			res = hundreds_piece + and_word + all_nums[remainder]
+			all_nums[num] = res
+			return res
+		all_nums[num] = hundreds_piece
 		return hundreds_piece
-	if num >= 20:
-		result, remainder = divmod(num, 10)
-		return words_dict_tens_fast[result] + number_to_letter_count(remainder, False)
-	teens_index = num - 10
-	if teens_index >= 0 and teens_index < len(words_dict_special_fast):
-		return words_dict_special_fast[teens_index]
-	else:
-		return words_dict_digits_fast[num]
-
+	# num is always >= 20 since we pre-compute the first 20 as theyre special
+	result, remainder = divmod(num, 10)
+	extra = 0 if remainder == 0 else all_nums[remainder] 
+	res = words_dict_tens_fast[result] + extra
+	all_nums[num] = res
+	return res
 
 def solve():
 	total = 0
@@ -41,7 +48,6 @@ def solve():
 	return total
 
 
-start = perf_counter()
 result = solve()
 end = perf_counter()
 print(result)
