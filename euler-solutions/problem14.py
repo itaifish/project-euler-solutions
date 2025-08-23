@@ -30,7 +30,8 @@ def find_collatz_length(num: int):
 def find_largest_collatz_sequence_within_range(max_num: int):
 	running_max = 1
 	number_for_length = 1
-	for i in range(int(max_num / 2), max_num + 1):
+	# collatz(n/2) < collatz(n) , so we can start in the middle
+	for i in range(max_num >> 1, max_num + 1):
 		new_len = find_collatz_length(i)
 		if new_len > running_max:
 			running_max = new_len
