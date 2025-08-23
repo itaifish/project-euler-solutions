@@ -1,8 +1,10 @@
 # https://projecteuler.net/problem=21
-from itertools import accumulate, combinations, permutations
+from itertools import combinations
 from math import sqrt
 from time import perf_counter
 from typing import Dict, List
+
+start = perf_counter()
 
 prime_factors_dict: Dict[int, List[int]] = {}
 sum_of_divisors_dict: Dict[int, int] = {}
@@ -63,5 +65,7 @@ def solve(max: int):
 		if is_amicable_number(i):
 			sum += i
 	return sum
-
-print(solve(10_000))
+result = solve(10_000)
+end = perf_counter()
+print(result)
+print(end - start)
