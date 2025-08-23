@@ -1,4 +1,5 @@
 from time import perf_counter
+
 start = perf_counter()
 
 # 0-9
@@ -22,6 +23,7 @@ for i in range(10):
 		all_nums[i * 10] = words_dict_tens_fast[i]
 all_nums[1000] = one_thousand
 
+
 def number_to_letter_count(num: int):
 	if all_nums[num] != 0:
 		return all_nums[num]
@@ -36,10 +38,11 @@ def number_to_letter_count(num: int):
 		return hundreds_piece
 	# num is always >= 20 since we pre-compute the first 20 as theyre special
 	result, remainder = divmod(num, 10)
-	extra = 0 if remainder == 0 else all_nums[remainder] 
+	extra = 0 if remainder == 0 else all_nums[remainder]
 	res = words_dict_tens_fast[result] + extra
 	all_nums[num] = res
 	return res
+
 
 def solve():
 	total = 0

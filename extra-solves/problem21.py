@@ -9,6 +9,7 @@ start = perf_counter()
 prime_factors_dict: Dict[int, List[int]] = {}
 sum_of_divisors_dict: Dict[int, int] = {}
 
+
 def prime_factors_for_num(number: int):
 	if prime_factors_dict.get(number) != None:
 		return prime_factors_dict[number]
@@ -44,6 +45,7 @@ def get_divisors_from_prime_factors(prime_factors: List[int]):
 			divisors.add(divisor)
 	return divisors
 
+
 def sum_of_proper_divisors(num: int):
 	lookup = sum_of_divisors_dict.get(num)
 	if lookup is not None:
@@ -52,6 +54,7 @@ def sum_of_proper_divisors(num: int):
 	sum_of_divisors_dict[num] = res
 	return res
 
+
 def is_amicable_number(num: int):
 	divisor_sum = sum_of_proper_divisors(num)
 	if num == divisor_sum:
@@ -59,12 +62,15 @@ def is_amicable_number(num: int):
 	amicable_sum = sum_of_proper_divisors(divisor_sum)
 	return num == amicable_sum
 
+
 def solve(max: int):
 	sum = 0
 	for i in range(max):
 		if is_amicable_number(i):
 			sum += i
 	return sum
+
+
 result = solve(10_000)
 end = perf_counter()
 print(result)
