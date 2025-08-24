@@ -10,7 +10,7 @@ def index_of_fib(fib_num: int):
 	return round(log(fib_num, golden_ratio) + log_of_sqrt_5_base_golden_ratio)
 
 def num_digits_of_nth_fib_number(n: int):
-	return round(n*log_of_golden_ratio_base_10)
+	return 1 + floor(n*log_of_golden_ratio_base_10)
 
 def fib(num: int):
 	fib_unrounded = (golden_ratio**num) / sqrt_5
