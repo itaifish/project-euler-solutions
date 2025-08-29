@@ -4,7 +4,7 @@ from time import perf_counter
 
 
 def solve():
-	power = 2**1000
+	power = 1 << 1000
 	digit_sum = sum(map(int, list(str(power))))
 	return digit_sum
 
