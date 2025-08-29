@@ -1,12 +1,8 @@
 # https://projecteuler.net/problem=11
-
 from time import perf_counter
-from typing import List
+from math import prod
 
 start = perf_counter()
-# we only need the down directions, down and to the right, directly down, and directly right, plus the -1/+1 plane, either down and to the left or up and to the right
-# for most scenarios as left, up, etc are just the same calculations from a different position
-directions = [[1, 1], [1, 0], [0, 1], [-1, 1]]
 
 nums_str = """08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
 49 49 99 40 17 81 18 57 60 87 17 40 98 43 69 48 04 56 62 00
@@ -33,36 +29,80 @@ nums = list(
 	map(lambda str_list: list(map(int, str_list.split(" "))), nums_str.split("\n"))
 )
 
-
-def within(target: int, max: int, min: int):
-	return target <= max and target >= min
-
-
-def find_max(nums_array: List[List[int]], offset_size: int):
+def find_max(nums_array, offset_size):
 	# in this specific test case all numbers are positive
 	cur_max = 0
 	y_max = len(nums_array) - 1
 	for y in range(y_max + 1):
 		x_max = len(nums_array[y]) - 1
 		for x in range(x_max + 1):
-			if nums_array[y][x] == 0:
+			cur_val = nums_array[y][x]
+			if cur_val == 0:
 				continue
-			for [x_delta, y_delta] in directions:
-				if (not within(x + (x_delta * (offset_size - 1)), x_max, 0)) or (
-					not within(y + (y_delta * (offset_size - 1)), y_max, 0)
-				):
-					continue
-				new_possible_max = 1
-				for offset_multiplier in range(offset_size):
-					new_possible_max *= nums_array[y + (y_delta * offset_multiplier)][
-						x + (x_delta * offset_multiplier)
-					]
+			within_dirs = 0
+			# horizontal		
+			if x + offset_size - 1 <= x_max:
+				within_dirs += 1
+				new_possible_max = cur_val
+				for offset_multiplier in range(1, offset_size):
+					new_val = nums_array[y][x + offset_multiplier]
+					if new_val == 0:
+						new_possible_max = 0
+						break
+					new_possible_max *= new_val
 				cur_max = max(cur_max, new_possible_max)
-
+			# vertical
+			if y + offset_size - 1 <= y_max:
+				within_dirs += 1
+				new_possible_max = cur_val
+				for offset_multiplier in range(1, offset_size):
+					new_val = nums_array[y + offset_multiplier][x]
+					if new_val == 0:
+						new_possible_max = 0
+						break
+					new_possible_max *= new_val
+				cur_max = max(cur_max, new_possible_max)
+				# down and to the left
+				if x - (offset_size - 1) >= 0:
+					new_possible_max = cur_val
+					for offset_multiplier in range(1, offset_size):
+						new_val = nums_array[y + offset_multiplier][x - offset_multiplier]
+						if new_val == 0:
+							new_possible_max = 0
+							break
+						new_possible_max *= new_val
+					cur_max = max(cur_max, new_possible_max)
+			# down and to the right
+			if within_dirs == 2:
+				new_possible_max = cur_val
+				for offset_multiplier in range(1, offset_size):
+					new_val = nums_array[y + offset_multiplier][x + offset_multiplier]
+					if new_val == 0:
+						new_possible_max = 0
+						break
+					new_possible_max *= new_val
+				cur_max = max(cur_max, new_possible_max)
 	return cur_max
+
+grid = [list(map(int, row.split())) for row in nums_str.splitlines()]
+rows, cols = len(grid), len(grid[0])
+
+def find_max_2(grid, n):
+    best = 0
+    for y in range(rows):
+        for x in range(cols):
+            if x + n <= cols:  # horizontal
+                best = max(best, prod(grid[y][x:x+n]))
+            if y + n <= rows:  # vertical
+                best = max(best, prod(grid[y+i][x] for i in range(n)))
+            if x + n <= cols and y + n <= rows:  # diagonal down-right
+                best = max(best, prod(grid[y+i][x+i] for i in range(n)))
+            if x - n + 1 >= 0 and y + n <= rows:  # diagonal down-left
+                best = max(best, prod(grid[y+i][x-i] for i in range(n)))
+    return best
 
 
 result = find_max(nums, 4)
 end = perf_counter()
 print(result)
-print(end - start)
+print(1000 * (end - start))

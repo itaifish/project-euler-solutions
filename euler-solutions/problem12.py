@@ -1,9 +1,8 @@
 # https://projecteuler.net/problem=12
 from math import sqrt
 from time import perf_counter
-from typing import Dict, List
 
-prime_factors_dict: Dict[int, List[int]] = {}
+prime_factors_dict = {}
 
 
 def prime_factors_for_num(number: int):
@@ -38,7 +37,7 @@ def prime_factors_for_num(number: int):
 # so it ends up being (n+1)*(m+1)*(o+1). If n,m,o are all 1 you end up with
 # 2*2*2 etc equal to the number of prime factors, which is the number of unique combinations
 # without repetition
-def count_divisors_from_prime_factors(prime_factors: List[int]):
+def count_divisors_from_prime_factors(prime_factors):
 	sorted_factors = prime_factors
 	last_num = -1
 	running_total_count = 0

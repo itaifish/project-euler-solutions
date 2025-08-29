@@ -1,19 +1,16 @@
 from time import perf_counter
 from typing import List, TypeVar
+import numpy as np
 
 T = TypeVar("T")
 
+start = perf_counter()
 
-def get_or_none(
-	list: List[List[T]] | List[T] | None, index: int, inner_index: int | None = None
-):
-	if inner_index is not None:
-		return get_or_none(get_or_none(list, index), inner_index)
-	if list is None:
-		return None
-	if index >= len(list):
-		return None
-	return list[index]
+
+def get_from_list(list, index, inner_index):
+	if index >= len(list) or inner_index >= len(list[index]):
+		return 0
+	return list[index][inner_index]
 
 
 triangle = """75
@@ -32,28 +29,28 @@ triangle = """75
 63 66 04 68 89 53 67 30 73 16 69 87 40 31
 04 62 98 27 23 09 70 98 73 93 38 53 60 04 23"""
 
+lists = list(
+	map(
+		lambda string_list: list(map(int, string_list.split())),
+		triangle.split("\n"),
+	)
+)
+
 
 def solve():
-	lists = list(
-		map(
-			lambda string_list: list(map(int, string_list.split())),
-			triangle.split("\n"),
-		)
-	)
 	best_path_solution = [[-1 for _ in num_list] for num_list in lists]
 	best_path_solution[0][0] = lists[0][0]
 	for list_index in range(1, len(lists)):
 		num_list = lists[list_index]
 		for item_index in range(len(num_list)):
 			best_path_solution[list_index][item_index] = num_list[item_index] + max(
-				get_or_none(best_path_solution, list_index - 1, item_index - 1) or 0,
-				get_or_none(best_path_solution, list_index - 1, item_index) or 0,
+				get_from_list(best_path_solution, list_index - 1, item_index - 1),
+				get_from_list(best_path_solution, list_index - 1, item_index),
 			)
 	return max(best_path_solution[len(lists) - 1])
 
 
-start = perf_counter()
 result = solve()
 end = perf_counter()
 print(result)
-print(end - start)
+print(1000 * (end - start))
