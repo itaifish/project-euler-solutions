@@ -1,6 +1,5 @@
 from time import perf_counter
-from typing import List, TypeVar
-import numpy as np
+from typing import TypeVar
 
 T = TypeVar("T")
 

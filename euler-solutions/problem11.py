@@ -29,6 +29,7 @@ nums = list(
 	map(lambda str_list: list(map(int, str_list.split(" "))), nums_str.split("\n"))
 )
 
+
 def find_max(nums_array, offset_size):
 	# in this specific test case all numbers are positive
 	cur_max = 0
@@ -40,7 +41,7 @@ def find_max(nums_array, offset_size):
 			if cur_val == 0:
 				continue
 			within_dirs = 0
-			# horizontal		
+			# horizontal
 			if x + offset_size - 1 <= x_max:
 				within_dirs += 1
 				new_possible_max = cur_val
@@ -66,7 +67,9 @@ def find_max(nums_array, offset_size):
 				if x - (offset_size - 1) >= 0:
 					new_possible_max = cur_val
 					for offset_multiplier in range(1, offset_size):
-						new_val = nums_array[y + offset_multiplier][x - offset_multiplier]
+						new_val = nums_array[y + offset_multiplier][
+							x - offset_multiplier
+						]
 						if new_val == 0:
 							new_possible_max = 0
 							break
@@ -84,22 +87,24 @@ def find_max(nums_array, offset_size):
 				cur_max = max(cur_max, new_possible_max)
 	return cur_max
 
+
 grid = [list(map(int, row.split())) for row in nums_str.splitlines()]
 rows, cols = len(grid), len(grid[0])
 
+
 def find_max_2(grid, n):
-    best = 0
-    for y in range(rows):
-        for x in range(cols):
-            if x + n <= cols:  # horizontal
-                best = max(best, prod(grid[y][x:x+n]))
-            if y + n <= rows:  # vertical
-                best = max(best, prod(grid[y+i][x] for i in range(n)))
-            if x + n <= cols and y + n <= rows:  # diagonal down-right
-                best = max(best, prod(grid[y+i][x+i] for i in range(n)))
-            if x - n + 1 >= 0 and y + n <= rows:  # diagonal down-left
-                best = max(best, prod(grid[y+i][x-i] for i in range(n)))
-    return best
+	best = 0
+	for y in range(rows):
+		for x in range(cols):
+			if x + n <= cols:  # horizontal
+				best = max(best, prod(grid[y][x : x + n]))
+			if y + n <= rows:  # vertical
+				best = max(best, prod(grid[y + i][x] for i in range(n)))
+			if x + n <= cols and y + n <= rows:  # diagonal down-right
+				best = max(best, prod(grid[y + i][x + i] for i in range(n)))
+			if x - n + 1 >= 0 and y + n <= rows:  # diagonal down-left
+				best = max(best, prod(grid[y + i][x - i] for i in range(n)))
+	return best
 
 
 result = find_max(nums, 4)
