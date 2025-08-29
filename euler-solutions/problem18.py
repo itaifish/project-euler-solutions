@@ -36,20 +36,16 @@ lists = list(
 )
 
 
-def solve():
-	best_path_solution = [[-1 for _ in num_list] for num_list in lists]
-	best_path_solution[0][0] = lists[0][0]
-	for list_index in range(1, len(lists)):
-		num_list = lists[list_index]
-		for item_index in range(len(num_list)):
-			best_path_solution[list_index][item_index] = num_list[item_index] + max(
-				get_from_list(best_path_solution, list_index - 1, item_index - 1),
-				get_from_list(best_path_solution, list_index - 1, item_index),
-			)
-	return max(best_path_solution[len(lists) - 1])
+def solve(triangle):
+	for row in range(len(triangle) - 2, -1, -1):
+		for col in range(len(triangle[row])):
+			l_parent = triangle[row + 1][col]
+			r_parent = triangle[row + 1][col + 1]
+			triangle[row][col] += l_parent if l_parent > r_parent else r_parent
+	return triangle[0][0]
 
 
-result = solve()
+result = solve(lists)
 end = perf_counter()
 print(result)
 print(end - start)
