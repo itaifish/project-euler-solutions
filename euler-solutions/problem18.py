@@ -52,4 +52,4 @@ def solve():
 result = solve()
 end = perf_counter()
 print(result)
-print(1000 * (end - start))
+print(end - start)

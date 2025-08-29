@@ -83,7 +83,9 @@ def find_max(nums_array, offset_size):
 				if within_dirs == 2:
 					new_possible_max = cur_val
 					for offset_multiplier in offset_list:
-						new_val = nums_array[y + offset_multiplier][x + offset_multiplier]
+						new_val = nums_array[y + offset_multiplier][
+							x + offset_multiplier
+						]
 						if new_val == 0:
 							new_possible_max = 0
 							break
