@@ -33,40 +33,43 @@ nums = list(
 def find_max(nums_array, offset_size):
 	# in this specific test case all numbers are positive
 	cur_max = 0
-	y_max = len(nums_array) - 1
-	for y in range(y_max + 1):
-		x_max = len(nums_array[y]) - 1
-		for x in range(x_max + 1):
+	y_max = len(nums_array)
+	x_max = len(nums_array[0])
+	offset_list = list(range(1, offset_size))
+	for y in range(y_max):
+		for x in range(x_max):
 			cur_val = nums_array[y][x]
 			if cur_val == 0:
 				continue
 			within_dirs = 0
 			# horizontal
-			if x + offset_size - 1 <= x_max:
+			if x + offset_size <= x_max:
 				within_dirs += 1
 				new_possible_max = cur_val
-				for offset_multiplier in range(1, offset_size):
+				for offset_multiplier in offset_list:
 					new_val = nums_array[y][x + offset_multiplier]
 					if new_val == 0:
 						new_possible_max = 0
 						break
 					new_possible_max *= new_val
-				cur_max = max(cur_max, new_possible_max)
+				if new_possible_max > cur_max:
+					cur_max = new_possible_max
 			# vertical
-			if y + offset_size - 1 <= y_max:
+			if y + offset_size <= y_max:
 				within_dirs += 1
 				new_possible_max = cur_val
-				for offset_multiplier in range(1, offset_size):
+				for offset_multiplier in offset_list:
 					new_val = nums_array[y + offset_multiplier][x]
 					if new_val == 0:
 						new_possible_max = 0
 						break
 					new_possible_max *= new_val
-				cur_max = max(cur_max, new_possible_max)
+				if new_possible_max > cur_max:
+					cur_max = new_possible_max
 				# down and to the left
 				if x - (offset_size - 1) >= 0:
 					new_possible_max = cur_val
-					for offset_multiplier in range(1, offset_size):
+					for offset_multiplier in offset_list:
 						new_val = nums_array[y + offset_multiplier][
 							x - offset_multiplier
 						]
@@ -74,37 +77,20 @@ def find_max(nums_array, offset_size):
 							new_possible_max = 0
 							break
 						new_possible_max *= new_val
-					cur_max = max(cur_max, new_possible_max)
-			# down and to the right
-			if within_dirs == 2:
-				new_possible_max = cur_val
-				for offset_multiplier in range(1, offset_size):
-					new_val = nums_array[y + offset_multiplier][x + offset_multiplier]
-					if new_val == 0:
-						new_possible_max = 0
-						break
-					new_possible_max *= new_val
-				cur_max = max(cur_max, new_possible_max)
+				if new_possible_max > cur_max:
+					cur_max = new_possible_max
+				# down and to the right
+				if within_dirs == 2:
+					new_possible_max = cur_val
+					for offset_multiplier in offset_list:
+						new_val = nums_array[y + offset_multiplier][x + offset_multiplier]
+						if new_val == 0:
+							new_possible_max = 0
+							break
+						new_possible_max *= new_val
+				if new_possible_max > cur_max:
+					cur_max = new_possible_max
 	return cur_max
-
-
-grid = [list(map(int, row.split())) for row in nums_str.splitlines()]
-rows, cols = len(grid), len(grid[0])
-
-
-def find_max_2(grid, n):
-	best = 0
-	for y in range(rows):
-		for x in range(cols):
-			if x + n <= cols:  # horizontal
-				best = max(best, prod(grid[y][x : x + n]))
-			if y + n <= rows:  # vertical
-				best = max(best, prod(grid[y + i][x] for i in range(n)))
-			if x + n <= cols and y + n <= rows:  # diagonal down-right
-				best = max(best, prod(grid[y + i][x + i] for i in range(n)))
-			if x - n + 1 >= 0 and y + n <= rows:  # diagonal down-left
-				best = max(best, prod(grid[y + i][x - i] for i in range(n)))
-	return best
 
 
 result = find_max(nums, 4)
