@@ -34,7 +34,8 @@ def number_to_letter_count(num: int):
 			res = hundreds_piece + and_word + all_nums[remainder]
 			all_nums[num] = res
 			return res
-		all_nums[num] = hundreds_piece
+		# we don't actually need to save the hundreds piece since we don't go over 1000
+		# all_nums[num] = hundreds_piece
 		return hundreds_piece
 	# num is always >= 20 since we pre-compute the first 20 as theyre special
 	result, remainder = divmod(num, 10)
