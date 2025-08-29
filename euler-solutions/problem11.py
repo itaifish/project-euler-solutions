@@ -96,4 +96,4 @@ def find_max(nums_array, offset_size):
 result = find_max(nums, 4)
 end = perf_counter()
 print(result)
-print(1000 * (end - start))
+print(end - start)
