@@ -12,7 +12,7 @@ and_word = 3
 
 # 10-19
 words_dict_special_fast = [3, 6, 6, 8, 8, 7, 7, 9, 8, 8]
-''' alternative solution if my main solution is ruled invalid
+""" alternative solution if my main solution is ruled invalid
 
 all_nums = [0] * 1001
 
@@ -50,7 +50,8 @@ def solve():
 		total += number_to_letter_count(i)
 	return total
 
-'''
+"""
+
 
 def solve_alternative():
 	# for ten not including the second ten (teens) we have a set of ones, starting from 0 ten to 9 ten
@@ -63,11 +64,11 @@ def solve_alternative():
 	# for the tens we have this for every hundred, so 10 of them
 	# and inside of every hundred, there are 10 (twenty->twentynine, thirty->thirtynine etc)
 	tens = 100 * sum(words_dict_tens_fast[2:])
-	#we say hundred for each number greater than or equal to 100, and not 1000, or 900 times (1001 (0 to 1000) minus 100 (0 -> 99) minus 1 (1000))
+	# we say hundred for each number greater than or equal to 100, and not 1000, or 900 times (1001 (0 to 1000) minus 100 (0 -> 99) minus 1 (1000))
 	hundreds = hundred * 900
 	# we have an `and` for each number 100 or greater than doesn't end in a 00, or 99/100 of them
 	# so 99/100 times 900, or 891
-	# another way to think about it is for each hundred starting from the first, we add 99 
+	# another way to think about it is for each hundred starting from the first, we add 99
 	# (ignoring xx hundred exactly, which has no and). So 99 * 9 = 891
 	ands = and_word * 891
 
